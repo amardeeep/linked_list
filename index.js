@@ -7,9 +7,9 @@ function node(value) {
   };
 }
 // factory linkedList
-function linkedList() {
+function linkedList(value = null) {
   let headNode = {
-    value: null,
+    value: value,
     nextNode: null,
   };
   //1 function append
@@ -29,13 +29,11 @@ function linkedList() {
 
   function prepend(value) {
     newNode = node(value);
-    secondNode = headNode.nextNode;
-    headNode.nextNode = newNode;
-    newNode.nextNode = secondNode;
+    newNode.nextNode = headNode;
   }
   // 3 checkSize to get number of nodes
+  let length = 1;
   function checkSize(node) {
-    let length = 0;
     if (node.nextNode == null) {
       return length;
     } else {
@@ -45,31 +43,61 @@ function linkedList() {
     return length;
   }
   function size() {
+    length = 0;
     return checkSize(headNode);
   }
   //4 head returns first node after headNode
   function head() {
-    return headNode.nextNode;
+    return headNode;
   }
   //5 tail returns last node
   function tail() {
-    let tail = {};
-    function returnTail(node) {
-      if (node.nextNode == null) {
-        return node;
-      } else {
-        returnTail(node.nextNode);
-      }
+    temp = headNode;
+    while (temp.nextNode) {
+      temp = temp.nextNode;
     }
-    return (tail = returnTail(headNode));
+    return temp;
+  }
+  //6 index
+  function at(index) {
+    temp = headNode;
+    let ind = 0;
+    while (ind !== index) {
+      ind++;
+      temp = temp.nextNode;
+    }
+    return temp;
+  }
+  //7 pop removes last element of the list
+  function pop() {
+    curr = headNode;
+    while (curr.nextNode) {
+      prev = curr;
+      curr = curr.nextNode;
+    }
+    prev.nextNode = null;
+  }
+  //8 contains(value)
+  function contains(value) {
+    temp = headNode;
+    while (temp.value !== value && temp !== null) {
+      temp = temp.nextNode;
+    }
+    if (temp.value == value) {
+      return true;
+    }
+    return false;
   }
   // values to return
   return {
+    contains,
+    pop,
     size,
     headNode,
     append,
     prepend,
     head,
     tail,
+    at,
   };
 }
