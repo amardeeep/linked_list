@@ -32,20 +32,6 @@ function linkedList(value = null) {
     newNode.nextNode = headNode;
   }
   // 3 checkSize to get number of nodes
-  /*let length = 1;
-  function checkSize(node) {
-    if (node.nextNode == null) {
-      return length;
-    } else {
-      length++;
-      checkSize(node.nextNode);
-    }
-    return length;
-  }
-  function size() {
-    length = 0;
-    return checkSize(headNode);
-  }*/
   function size() {
     temp = headNode;
     let length = 1;
@@ -121,8 +107,35 @@ function linkedList(value = null) {
     string = string + "(" + temp.value + ")";
     return string;
   }
+  //11 insertAt(value,index)
+  function insertAt(value, index) {
+    temp = headNode;
+    newNode = node(value);
+    let ind = 0;
+    while (ind !== index) {
+      ind++;
+      temp = temp.nextNode;
+    }
+    succNode = temp.nextNode;
+    newNode.nextNode = succNode;
+    temp.nextNode = newNode;
+  }
+  //12 removeAt
+  function removeAt(index) {
+    temp = headNode;
+    let ind = 0;
+    while (ind !== index) {
+      ind++;
+      prev = temp;
+      temp = temp.nextNode;
+    }
+    succNode = temp.nextNode;
+    prev.nextNode = succNode;
+  }
   // values to return
   return {
+    removeAt,
+    insertAt,
     toString,
     find,
     contains,
