@@ -32,7 +32,7 @@ function linkedList(value = null) {
     newNode.nextNode = headNode;
   }
   // 3 checkSize to get number of nodes
-  let length = 1;
+  /*let length = 1;
   function checkSize(node) {
     if (node.nextNode == null) {
       return length;
@@ -45,6 +45,15 @@ function linkedList(value = null) {
   function size() {
     length = 0;
     return checkSize(headNode);
+  }*/
+  function size() {
+    temp = headNode;
+    let length = 1;
+    while (temp.nextNode) {
+      length++;
+      temp = temp.nextNode;
+    }
+    return length;
   }
   //4 head returns first node after headNode
   function head() {
@@ -80,7 +89,7 @@ function linkedList(value = null) {
   //8 contains(value)
   function contains(value) {
     temp = headNode;
-    while (temp.value !== value && temp !== null) {
+    while (temp.value !== value && temp.nextNode !== null) {
       temp = temp.nextNode;
     }
     if (temp.value == value) {
@@ -88,8 +97,34 @@ function linkedList(value = null) {
     }
     return false;
   }
+  //9 find(value)
+  function find(value) {
+    temp = headNode;
+    let index = 0;
+    while (temp.value !== value && temp.nextNode !== null) {
+      temp = temp.nextNode;
+      index++;
+    }
+    if (temp.value == value) {
+      return index;
+    }
+    return "null";
+  }
+  //10 toString returns a string containing value in form (value)->(value)
+  function toString() {
+    temp = headNode;
+    let string = "The Linked List is:";
+    do {
+      string = string + "(" + temp.value + ")->";
+      temp = temp.nextNode;
+    } while (temp.nextNode);
+    string = string + "(" + temp.value + ")";
+    return string;
+  }
   // values to return
   return {
+    toString,
+    find,
     contains,
     pop,
     size,
